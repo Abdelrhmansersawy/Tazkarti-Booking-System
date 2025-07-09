@@ -1,0 +1,28 @@
+name: Java Style Check
+
+on: 
+  pull_request:
+
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # This step finds which files were changed in the PR
+      - name: Get changed files
+        id: changed_files
+        uses: tj-actions/changed-files@v44
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      # This steps runs Checkstyle on the specific modules if they have changed
+      - name: Run Checkstyle on Eureka Server
+        if: contains(steps.changed_files.outputs.all_changed_files, 'eureka-server/')
+        run: mvn --projects eureka-server checkstyle:check
+      # Additional steps for other modules can be added similarly
