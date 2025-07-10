@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+      # Example route - uncomment and modify as needed
+      # - id: example-service-route
+      #   uri: lb://EXAMPLE-SERVICE
+      #   predicates:
+      #     - Path=/api/example/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
